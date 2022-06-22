@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{url_for('static',filename='./css/_type.css')}}">
+        <link rel="stylesheet" href="{{url_for('static',filename='./css/site.css')}}">
+        <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+        <title>Typing - ZetaType</title>
+    </head>
+    <body>
+        <input type="text" class="input_field">
+        <div class="panel">
+            <div class="row padding_4pt_lr">
+                <div class="content_text">
+                   <span class="correct">DATA LOADING...</span>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="panel_float">
+            <h3>STATISTICS</h3>
+            <div class="row space_between"><span>TIME</span><span id="time_left">--:--</span></div>
+            <div class="row space_between"><span>MISTAKES</span><span id="mistakes">-</span></div>
+            <div class="row space_between"><span>WPM</span><span id="wpm">-</span></div>
+        </div>
+
+
+
+        <footer>Copyright &copy; 2022 lupnis ( <a href = "mailto:lupnisj@gmail.com">BUG REPORT</a> )</footer>
+        <script src="{{url_for('static',filename='./js/typing.js')}}"></script>
+        <script>
+            let statistics = document.querySelector('.panel_float');
+            statistics.addEventListener('dblclick',function(e){
+                statistics.style.height=  statistics.style.height === '32pt'?'auto': '32pt';
+            });
+            let _x,_y_dx,_dy;
+            statistics.addEventListener('mousedown',function(e) {
+                _x = e.pageX - statistics.offsetLeft;
+                _y = e.pageY - statistics.offsetTop;
+                document.addEventListener('mousemove',move);
+                function move(e) {
+                    statistics.style.left = e.pageX - _x + 'px';
+                    statistics.style.top = e.pageY - _y + 'px';
+                }
+                document.addEventListener('mouseup', function() {
+                    document.removeEventListener('mousemove', move);
+                })
+            })
+        </script>
+    </body>
+</html>

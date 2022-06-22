@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background-image: url('../images/back.jpg');
+    background-size: cover;
+    box-sizing: border-box;
+}
+
+::selection {
+    background: #4a17b8a9;
+    border-radius: 5px;
+}
+
+.input_field {
+    opacity: 0;
+    color:#000000;
+    position: absolute;
+    z-index: -9999;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.panel {
+    min-width: 400pt;
+    width: 60vw;
+    max-width: 1800pt;
+    padding: 20pt;
+    background: rgba(23, 0, 54, 0.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+.panel_float{
+    width: 140pt;
+    padding: 20pt;
+    padding-top: 10pt;
+    background: rgba(0, 156, 204, 0.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    color: #ffffff;
+    position: absolute;
+    left: 10pt;
+    cursor: move;
+    overflow: hidden;
+    z-index: 9999;
+}
+.panel_float h3{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+.panel_float div{
+    margin-top: 10pt;
+    user-select: none;
+}
+
+.content_text::-webkit-scrollbar {
+    width: 0;
+}
+
+.panel .content_text {
+    overflow: scroll;
+    max-height: 70vh;
+    font-size: 20pt;
+    text-align: justify;
+    word-break: break-all;
+    color:#ffffff;
+}
+
+
+.content_text span {
+    position: relative;
+    font-family: 'Source Code Pro', monospace;
+    line-height: 30pt;
+    user-select: none;
+}
+
+.content_text  span.correct {
+    color: #8ff484;
+}
+
+.content_text  span.incorrect {
+    color: #f61e25;
+    background: #4a0000;
+    border-radius: 4px;
+}
+
+.content_text  span.current {
+    color: #77dfff;
+}
+
+.content_text  span.current::before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    bottom: -2pt;
+    left: 0;
+    opacity: 0;
+    border-radius: 5px;
+    background: #77d6ff;
+    animation: blink 3s ease infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 1;
+    }
+}

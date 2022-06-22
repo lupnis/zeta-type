@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{url_for('static',filename='./css/_login.css')}}">
+        <link rel="stylesheet" href="{{url_for('static',filename='./css/site.css')}}">
+        <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+        <title>Login - ZetaType</title>
+    </head>
+    <body>
+        <div class="panel">
+        <h2>SIGN IN</h2>
+        <form id="form_signin" onsubmit="return false;">
+            <div class="input_container">
+                <input id="uid" type="text" required>
+                <label>USER NAME</label>
+            </div>
+            <div class="input_container">
+                <input id="pwd" type="password" required>
+                <label>PASSWORD</label>
+            </div>
+            <div class="row centered padding_4pt_lr margin_10pt_btn hidden" id = "error_view"><span class="error">UNDEFINED ERROR</span></div>
+            <div class="row centered padding_4pt_lr"><button onclick="do_signin()">SIGN IN</button></div>
+        </form>
+        </div>
+        <footer>Copyright &copy; 2022 lupnis ( <a href = "mailto:lupnisj@gmail.com">BUG REPORT</a> )</footer>
+        <script>
+            function do_signin(){
+                let _uid = document.forms[0].uid.value;
+                let _pwd = document.forms[0].pwd.value;
+                let _cur = new Date().getTime();
+                if(_uid == '' || _pwd == '') {
+                    return;
+                }
+                _pwd = md5(btoa(_pwd));
+                $.ajax({
+                    url:'/account/do_sign_in',
+                    method:'POST',
+                    data:{
+                        uid:_uid,
+                        pwd:_pwd,
+                        sub:_cur
+                    },
+                    success:function(data) {
+                        let _raw = eval(data);
+                        let _token = _raw.token;
+                        console.log(_token);
+                        window.location.href='/typing?token='+_token;
+                    },
+                    error:function(data){
+                        let _raw = JSON.parse(data.responseText);
+                        document.forms[0].pwd.value='';
+                        document.getElementById('error_view').querySelector('span').innerText = _raw.err_tag;
+                        document.getElementById('error_view').style.display='flex';
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
